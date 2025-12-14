@@ -1,0 +1,66 @@
+{% extends "layout.html" %} {% block title %} Expenses history {% endblock %} {%
+block main %}
+<div class="container m-2 p-2">
+  <form class="form d-flex gap-2" action="/history">
+    <div class="d-flex flex-column gap-2">
+      <label for="category">Filter by category:</label>
+      <select
+        name="category_id"
+        id="category"
+        class="form-select form-select-md"
+        aria-label="Default"
+      >
+        <option value="0" selected disabled>Select category</option>
+        {% for cat in categories %}
+        <option value="{{cat.id}}">{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button
+      class="btn btn-primary py-1 px-2 align-self-end"
+      style="height: fit-content"
+      type="submit"
+    >
+      Apply filter
+    </button>
+    <a
+      href="{{ url_for('history') }}"
+      class="btn btn-info py-1 px-2 align-self-end"
+      style="height: fit-content"
+      >Remove filter</a
+    >
+  </form>
+</div>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Category</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Decription</th>
+        <th scope="col">Date</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in history %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ row.category }}</td>
+        <td>{{ row.cost }}</td>
+        <td>{{ row.description }}</td>
+        <td>{{ row.date.strftime("%d.%m.%Y %H:%M") }}</td>
+        <td>
+          <form action="/delete/{{ row.id }}" method="post">
+            <input class="btn btn-danger" value="Delete" type="submit" />
+          </form>
+        </td>
+      </tr>
+
+      {% endfor%}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

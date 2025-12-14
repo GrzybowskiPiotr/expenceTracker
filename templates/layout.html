@@ -31,10 +31,11 @@
 
           <ul class="navbar-nav me-auto mt-2">
             <li class="nav-item">
-              <a class="nav-link" href="/dashboard">DashBoard</a>
+              <a class="nav-link" href="/dashboard">Dashboard</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="/">navItem1</a></li>
-            <li class="nav-item"><a class="nav-link" href="/">navietm1</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="/add_expense">Add Expsens</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="/history">History</a>
             </li>
@@ -60,13 +61,55 @@
         </div>
       </div>
     </nav>
-    <main
-      class="container-fluid py-1 text-center bg-opacity-10 flex-fill d-flex flex-column align-items-center justify-content-center"
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+      class="position-fixed top-0 end-0 p-3"
+      style="
+        z-index: 1080;
+        margin-right: 1rem;
+        margin-top: 65px;
+        max-width: 400px;
+        min-width: 365px;
+      "
     >
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %} {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
-      {% endfor %} {% endif %} {% endwith %} {% block main %}{% endblock %}
+      <div id="toast-container" class="toast-container"></div>
+    </div>
+    <main
+      class="container-fluid text-center bg-opacity-10 flex-fill d-flex flex-column align-items-center mt-5"
+    >
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      <script id="flash-data" type="application/json">
+        {{ messages|default([])|tojson }}
+      </script>
+      {% endwith %}
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const messages = JSON.parse(
+            document.getElementById("flash-data").textContent
+          );
+          const toastContainer = document.getElementById("toast-container");
+
+          messages.forEach(([category, message]) => {
+            const toastHTML = `
+            <div class="toast align-items-center text-bg-${category} border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        `;
+            toastContainer.insertAdjacentHTML("beforeend", toastHTML);
+          });
+
+          toastContainer.querySelectorAll(".toast").forEach((toastEl) => {
+            new bootstrap.Toast(toastEl).show();
+          });
+        });
+      </script>
+      {% block main %}{% endblock %}
     </main>
     <footer class="text-center text-lg-start mt-auto">
       <div class="text-center p-3">© 2024 Copyright: Expense Tracker</div>

@@ -1,0 +1,54 @@
+{% extends "layout.html" %} {% block title %} Add Expense {% endblock %} {%
+block main %}
+<div
+  class="d-flex flex-row-reverse bg-primary bg-opacity-10 rounded overflow-hidden"
+>
+  <div class="bg-primary bg-opacity-10 p-5 rounded-r">
+    <h1 class="text-uppercase fs-3">Add new expense</h1>
+  </div>
+  <div class="container bg-primary p-4 rounded-r w-auto bg-opacity-25">
+    <form action="/add_expense" method="post" id="add_expense">
+      <div class="mb-3">
+        <input
+          autocomplete="off"
+          autofocus
+          class="form-control mx-auto w-auto"
+          name="amount"
+          placeholder="Amount of expense"
+          type="number"
+          step="0.01"
+          min="0"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <select
+          class="form-select form-select-md mb-3"
+          name="category"
+          required
+        >
+          <option selected value="0" disabled>Select Category</option>
+          {% for cat in categories %}
+          <option value="{{cat.id}}">{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-floating">
+        <textarea
+          name="description"
+          id="description"
+          class="form-control"
+          name="description"
+          placeholder="Expense description (optional)"
+          type="text"
+          style="resize: none; min-height: 100px"
+        ></textarea>
+        <label for="description">Description (optional)</label>
+      </div>
+      <button class="btn btn-primary mt-5" id="add_expense" type="submit">
+        Add Expense
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

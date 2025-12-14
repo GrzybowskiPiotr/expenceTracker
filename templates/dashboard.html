@@ -1,4 +1,52 @@
-{% extends "layout.html" %} {% block title %} DashBoard {% endblock %} {% block
+{% extends "layout.html" %} {% block title %} Dashboard {% endblock %} {% block
 main %}
-<h1>Hello DashBoard</h1>
+<div class="container">
+  <div class="text-start mb-4">
+    <h1 class="fw-bold">Welcome {{ user }}!</h1>
+    <p class="fs-4">Lets track Your expences</p>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col g-col-3" >
+    <div class="card my-4" style="width: 18rem">
+      <div class="card-body d-flex flex-column align-items-start">
+        <h2 class="card-title fs-4">Total spend</h5>
+        <p class="card-text fs-1">
+          ${{ "%.2f"|format(totalSpend) }}
+        </p>
+        <a href="/history" class="card-link btn btn-primary">See all
+        </a>
+      </div>
+    </div>
+      </div>
+      <div class="col g-col-3" style="width: 240px">
+    <div class="card my-4" style="width: 18rem">
+      <div class="card-body d-flex flex-column align-items-start">
+        <h2 class="card-title fs-4">Transactions</h5>
+        <p class="card-text fs-1">
+          {{ transactionsCount }}
+        </p>
+        <a href="/history" class="card-link btn btn-primary">See all
+        </a>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div class="row">
+      <h2 class="fs-3 text-start">Total Spending by Category</h2>
+       {% for cat in sumPerCat%}
+       <div class="col g-col-3">
+        <div class="card my-4" style="width: 18rem">
+          <div class="card-body d-flex flex-column align-items-start">
+            <h2 class="card-title fs-4">{{ cat.name }}</h5>
+            <p class="card-text fs-1">${{ "%.2f"|format(cat.sum) }}</p>
+            <a href="/history" class="card-link btn btn-primary">See all</a>
+          </div>
+        </div>
+      </div>
+       {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}
