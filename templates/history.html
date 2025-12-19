@@ -1,8 +1,57 @@
 {% extends "layout.html" %} {% block title %} Expenses history {% endblock %} {%
 block main %}
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Are you sure to delete Expense ?
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form
+        action="/delete/"
+        method="post"
+        class="modal-footer form-delete d-flex justify-content-between"
+      >
+        <p id="delete-p">Wait... <span id="time">3</span> sec.</p>
+        <div>
+          <button
+            type="button"
+            class="btn btn-secondary btnCancel"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-danger delete-btn" disabled>
+            Delete expence
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="container m-2 p-2">
+  <div class="contaner d-flex justify-content-between align-items-end">
   <form class="form d-flex gap-2" action="/history">
     <div class="d-flex flex-column gap-2">
+
       <label for="category">Filter by category:</label>
       <select
         name="category_id"
@@ -12,7 +61,9 @@ block main %}
       >
         <option value="0" selected disabled>Select category</option>
         {% for cat in categories %}
-        <option value="{{cat.id}}">{{ cat.name }}</option>
+        <option value="{{cat.id}}" {% if selected_category == cat.id %}selected{% endif %}>
+          {{ cat.name }}
+        </option>
         {% endfor %}
       </select>
     </div>
@@ -30,6 +81,10 @@ block main %}
       >Remove filter</a
     >
   </form>
+  <div>
+    <a href="/add_expense" class="btn btn-primary">Add expence</a>
+  </div>
+  </div>
 </div>
 <div class="container">
   <table class="table table-striped">
@@ -51,9 +106,19 @@ block main %}
         <td>{{ row.cost }}</td>
         <td>{{ row.description }}</td>
         <td>{{ row.date.strftime("%d.%m.%Y %H:%M") }}</td>
-        <td>
-          <form action="/delete/{{ row.id }}" method="post">
-            <input class="btn btn-danger" value="Delete" type="submit" />
+        <td class="d-flex gap-2 justify-content-center">
+          <div>
+              <!-- Button trigger modal -->
+              <!-- prettier-ignore -->
+              <button
+                class="btn btn-danger btn-delete" id="{{ row.id }}"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+                >Delete</button>
+          </div>
+
+          <form action="/edit/{{ row.id }}" method="get">
+            <input class="btn btn-info" value="Edit" type="submit" />
           </form>
         </td>
       </tr>
@@ -62,5 +127,5 @@ block main %}
     </tbody>
   </table>
 </div>
-
+<script src="/static/delete_modal.js"></script>
 {% endblock %}

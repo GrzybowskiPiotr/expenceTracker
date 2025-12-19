@@ -1,0 +1,3 @@
+<form action="/delete/{{ row.id }}" method="post">
+            <input class="btn btn-danger" value="Delete" type="submit" />
+          </form>

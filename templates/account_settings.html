@@ -1,0 +1,45 @@
+{% extends "layout.html" %} {% block title %} Account Settings {% endblock %} {%
+block main %}
+<div
+  class="d-flex flex-row-reverse bg-primary bg-opacity-10 rounded overflow-hidden"
+>
+  <div class="bg-primary bg-opacity-10 p-5 rounded-r">
+    <h1 class="mb-4">Account Settings</h1>
+  </div>
+  <div class="container bg-primary p-4 rounded-r w-auto bg-opacity-25">
+    <form action="/account_settings" method="post">
+      <div class="mb-3">
+        <input
+          autocomplete="off"
+          autofocus
+          class="form-control mx-auto w-auto"
+          name="username"
+          placeholder="Username"
+          type="text"
+          value="{{ user.username }}"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          class="form-control mx-auto w-auto"
+          name="password"
+          placeholder="New password"
+          type="password"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          class="form-control mx-auto w-auto"
+          name="confirmation"
+          placeholder="Confirm new password"
+          type="password"
+        />
+      </div>
+      <button class="btn btn-primary" id="register" type="submit">
+        Save changes
+      </button>
+      <a class="btn btn-secondary" href="/dashboard">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

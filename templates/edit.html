@@ -1,0 +1,60 @@
+{% extends "layout.html" %} {% block title %} Edit expense {% endblock %} {%
+block main %}
+<div
+  class="d-flex flex-row-reverse bg-primary bg-opacity-10 rounded overflow-hidden"
+>
+  <div class="bg-primary bg-opacity-10 p-5 rounded-r">
+    <h1 class="text-uppercase fs-3">Edit expense</h1>
+  </div>
+  <div class="container bg-primary p-4 rounded-r w-auto bg-opacity-25">
+    <form action="/edit/{{ expence_data.id }}" method="post" id="add_expense">
+      <div class="mb-3">
+        <input
+          autocomplete="off"
+          autofocus
+          class="form-control mx-auto w-auto"
+          name="amount"
+          placeholder="Amount of expense"
+          type="number"
+          step="0.01"
+          min="0"
+          required
+          value="{{expence_data.amount}}"
+        />
+      </div>
+      <div class="mb-3">
+        <select
+          class="form-select form-select-md mb-3"
+          name="category"
+          required
+        >
+          <option value="0" disabled>Select Category</option>
+          {% for cat in categories %}
+          <option value="{{cat.id}}" {{ 'selected' if cat.id ==  expence_data.category_id }}>
+            {{ cat.name }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-floating">
+        <textarea
+          name="description"
+          id="description"
+          class="form-control"
+          name="description"
+          placeholder="Expense description (optional)"
+          type="text"
+          style="resize: none; min-height: 100px"
+        >{{ expence_data.description }}</textarea>
+        <label for="description">Decription</label>
+      </div>
+      <div class="container mt-3">
+      <button class="btn btn-success" id="add_expense" type="submit">
+        Save
+      </button>
+      <a href="/history" class="btn btn-primary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

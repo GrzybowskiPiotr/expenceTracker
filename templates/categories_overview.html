@@ -1,0 +1,95 @@
+{% extends "layout.html" %} {% block title %} Categories {% endblock %} {% block
+main %}
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Are you sure to delete category ?
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form
+        action="/categories/delete/"
+        method="post"
+        class="modal-footer form-delete d-flex justify-content-between"
+      >
+        <p id="delete-p">Wait... <span id="time">3</span> sec.</p>
+        <div>
+          <button
+            type="button"
+            class="btn btn-secondary btnCancel"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-danger delete-btn" disabled>
+            Delete category
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container m-2 p-2">
+  <div class="container p-2 m-2 d-flex">
+    <a href="/categories/add" class="btn btn-primary">Add new category</a>
+  </div>
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Decription</th>
+          <th scope="col">Usage_count</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in categories_usage %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.description}}</td>
+          <td>{{ row.usage }}</td>
+          <td class="d-flex gap-2 justify-content-center">
+            <div>
+              <!-- Button trigger modal -->
+              <!-- prettier-ignore -->
+              <button
+                class="btn btn-danger btn-delete" id="{{ row.id }}"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+                {% if row.usage> 0 %} disabled {% endif %}>
+                Delete
+              </button>
+            </div>
+            <form action="/categories/edit/{{ row.id }}" method="get">
+              <input class="btn btn-info" value="Edit" type="submit" />
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="/static/delete_modal.js"></script>
+{% endblock %}
