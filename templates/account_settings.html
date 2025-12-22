@@ -1,12 +1,10 @@
 {% extends "layout.html" %} {% block title %} Account Settings {% endblock %} {%
 block main %}
-<div
-  class="d-flex flex-row-reverse bg-primary bg-opacity-10 rounded overflow-hidden"
->
-  <div class="bg-primary bg-opacity-10 p-5 rounded-r">
-    <h1 class="mb-4">Account Settings</h1>
+<div class="card p-4" style="width: fit-content">
+  <div class="card-body">
+    <h1 class="mb-4 fs-6 fw-bolder text-uppercase">Account Settings</h1>
   </div>
-  <div class="container bg-primary p-4 rounded-r w-auto bg-opacity-25">
+  <div class="container w-auto">
     <form action="/account_settings" method="post">
       <div class="mb-3">
         <input
@@ -35,10 +33,12 @@ block main %}
           type="password"
         />
       </div>
-      <button class="btn btn-primary" id="register" type="submit">
-        Save changes
-      </button>
-      <a class="btn btn-secondary" href="/dashboard">Cancel</a>
+      <div class="mt-4 d-flex gap-3">
+        <button class="btn btn-primary" id="register" type="submit">
+          Save changes
+        </button>
+        <a class="btn btn-secondary" href="/dashboard">Cancel</a>
+      </div>
     </form>
   </div>
 </div>

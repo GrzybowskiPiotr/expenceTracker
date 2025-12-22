@@ -1,12 +1,8 @@
 {% extends "layout.html" %} {% block title %} Edit expense {% endblock %} {%
 block main %}
-<div
-  class="d-flex flex-row-reverse bg-primary bg-opacity-10 rounded overflow-hidden"
->
-  <div class="bg-primary bg-opacity-10 p-5 rounded-r">
-    <h1 class="text-uppercase fs-3">Edit expense</h1>
-  </div>
-  <div class="container bg-primary p-4 rounded-r w-auto bg-opacity-25">
+<div class="card p-4" style="width: fit-content">
+  <div class="card-body">
+    <h1 class="mb-4 fs-6 fw-bolder text-uppercase">Edit expence</h1>
     <form action="/edit/{{ expence_data.id }}" method="post" id="add_expense">
       <div class="mb-3">
         <input
@@ -49,10 +45,10 @@ block main %}
         <label for="description">Decription</label>
       </div>
       <div class="container mt-3">
-      <button class="btn btn-success" id="add_expense" type="submit">
+      <button class="btn btn-primary" id="add_expense" type="submit">
         Save
       </button>
-      <a href="/history" class="btn btn-primary">Cancel</a>
+      <a href="/history" class="btn btn-secondary">Cancel</a>
       </div>
     </form>
   </div>

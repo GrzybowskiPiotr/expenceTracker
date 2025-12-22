@@ -1,5 +1,22 @@
 {% extends "layout.html"%} {% block title %} Expense Tracker {% endblock %} {%
 block main %}
-<h1 class="mb-4">Welcome to Expense Tracker</h1>
-<p class="lead">Track your expenses easily and efficiently.</p>
+
+<div class="card p-4 text-uppercase" style="width: fit-content">
+  <div class="card-body">
+    <h1 class="mb-4 fs-3 fw-bolder">Welcome to Expense Tracker</h1>
+    <h2 class="card-subtitle mb-2 text-body-secondary fs-6">
+      Track your expenses easily and efficiently.
+    </h2>
+
+    <p class="card-text my-4 fs-4 fw-semibold">To get access to application:</p>
+    <div
+      class="d-flex gap-3 container-fluid justify-content-center align-items-center"
+    >
+      <a href="/register" class="btn btn-primary">Register</a>
+      <p class="fs-6 mt-2">or</p>
+      <a href="/login" class="btn btn-success">Login</a>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

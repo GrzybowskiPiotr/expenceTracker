@@ -1,0 +1,20 @@
+.nav-item {
+  border: 2px solid #dee2e6;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 0rem;
+}
+
+.nav-item:hover {
+  background-color: #6610f2;
+  border-color: #6610f2;
+}
+.nav-item:hover > .nav-link {
+  color: #f8f9fa;
+}
+.nav-link {
+  padding: 0.25rem;
+}
+nav {
+  border-bottom: 2px solid #dee2e6;
+}
