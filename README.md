@@ -1,8 +1,8 @@
 # Expense Tracker – CS50 Final Project
 
-#### Video Demo: <URL WILL BE ADDED AFTER RECORDING>
+#### Video Demo: https://youtu.be/TMG4p6RUGp8
 
-#### Author: Piotr Grzybowski [GitHub username]
+#### Author: Piotr Grzybowski [GrzybowskiPiotr on GitHub, PG_2510_F7GZ on edX]
 
 ---
 
